@@ -8,7 +8,7 @@ export default class App extends React.Component {
     super(props)
     this.hotTableComponent = React.createRef()
     this.hotSettings = {
-      startRows: 5,
+      startRows: 6,
       startCols: 5,
       licenseKey: 'non-commercial-and-evaluation',
       colHeaders: true,
