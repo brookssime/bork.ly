@@ -15,40 +15,40 @@ export default class App extends React.Component {
       rowHeaders: true,
       columnSorting: true,
       formulas: true,
-      contextMenu: {
+      dropdownMenu: {
+        callback: this.storeData.bind(this),
         items: {
-          row_above: {},
-          row_below: {},
           col_left: {},
           col_right: {},
           separator: Handsontable.plugins.ContextMenu.SEPARATOR,
-          clear_custom: {
-            name: 'Clear all cells',
-            callback: function() {
-              this.clear()
-            }
-          }
+          remove_col: {},
+          clear_column: {}
+        }
+      },
+      contextMenu: {
+        callback: this.storeData.bind(this),
+        items: {
+          row_below: {},
+          remove_row: {}
         }
       }
     }
   }
 
   componentDidMount() {
-    this.hotTableComponent.current.hotInstance.updateSettings({ afterChange: this.loadOrStoreData.bind(this) })
-    chrome.storage.local.get(['nimbusTable'], function(result) {
-      console.log(result)
-      if (result && result.nimbusTable) {
-        this.hotTableComponent.current.hotInstance.loadData(JSON.parse(result.nimbusTable))
-      }
-    })
+    this.hotTableComponent.current.hotInstance.updateSettings({ afterChange: this.storeData.bind(this) })
+    if (localStorage.hasOwnProperty('nimbusTable')) {
+      let nimbusTable = localStorage.getItem('nimbusTable')
+      this.hotTableComponent.current.hotInstance.loadData(JSON.parse(nimbusTable))
+    }
   }
 
-  loadOrStoreData(change, source) {
+  storeData(change, source) {
     if (source === 'loadData') {
       return //don't save this change
     }
     const nimbusTable = JSON.stringify(this.hotTableComponent.current.hotInstance.getData())
-    chrome.storage.local.set({ nimbusTable: nimbusTable })
+    localStorage.setItem('nimbusTable', nimbusTable)
   }
 
   render() {
