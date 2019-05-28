@@ -1,15 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "manifest_version": 2,
+  "name": "Bork.ly",
+  "description": "A miniature spreadsheet for quick calculations",
+  "version": "0.0.1",
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "images/cloudy16.png",
+    "32": "images/cloudy32.png",
+    "48": "images/cloudy48.png",
+    "128": "images/cloudy128.png"
+  },
+  "content_security_policy": "script-src 'self' 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self'",
+  "permissions": [
+    "storage"
+  ]
 }
